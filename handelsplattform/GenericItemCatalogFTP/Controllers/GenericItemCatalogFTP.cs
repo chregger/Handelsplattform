@@ -10,29 +10,28 @@ namespace GenericItemCatalogFTP.Controllers
     [ApiController]
     public class GenericItemCatalogFTP : Controller
     {
-        string[] genericcatalog = new string[] { "Default Item FTP Call failed!" };
-        WebClient request = new WebClient();
-        string url = "ftp://ftp29.world4you.com/productlist.txt";  //Danke an Gruppe Paul Z. und Stefan R. für den FTP Testzugang
+        private string[] _genericCatalog = { "Default Item FTP Call failed!" };
+        private readonly WebClient _request = new WebClient();
+        private readonly string _url = "ftp://ftp29.world4you.com/productlist.txt";  //Danke an Gruppe Paul Z. und Stefan R. für den FTP Testzugang
 
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            HttpRequestCachePolicy requestPolicy = new HttpRequestCachePolicy(HttpCacheAgeControl.MaxAge, TimeSpan.FromMinutes(10));
-            request.Credentials = new NetworkCredential("stefanraming_ieg", "2mda.xUdtPigTWJabs@_"); //Danke an Gruppe Paul Z. und Stefan R. für den FTP Testzugang
-            request.CachePolicy = requestPolicy;
-
+            var requestPolicy = new HttpRequestCachePolicy(HttpCacheAgeControl.MaxAge, TimeSpan.FromMinutes(10));
+            _request.Credentials = new NetworkCredential("stefanraming_ieg", "2mda.xUdtPigTWJabs@_"); //Danke an Gruppe Paul Z. und Stefan R. für den FTP Testzugang
+            _request.CachePolicy = requestPolicy;
             try
             {
-                byte[] newFileData = request.DownloadData(url);
-                string fileString = System.Text.Encoding.UTF8.GetString(newFileData);
-                genericcatalog = fileString.Split(",");
+                var newFileData = _request.DownloadData(_url);
+                var fileString = System.Text.Encoding.UTF8.GetString(newFileData);
+                _genericCatalog = fileString.Split(",");
 
                 Console.WriteLine("---- Console Test ----");
                 Console.WriteLine(fileString);
 
-                return genericcatalog;
+                return _genericCatalog;
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 // maybe logging
                 return new string[] { "Error" };
