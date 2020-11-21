@@ -29,13 +29,13 @@ namespace BlackFriday.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Basket basket)
         {
-            _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", basket.CustomerCreditCardnumber, basket.Product, basket.AmountInEuro);
+            _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", basket.CustomerCreditCardNumber, basket.Product, basket.AmountInEuro);
 
             //Mapping
             var creditCardTransaction = new CreditcardTransaction()
             {
                 Amount = basket.AmountInEuro,
-                CreditcardNumber = basket.CustomerCreditCardnumber,
+                CreditCardNumber = basket.CustomerCreditCardNumber,
                 ReceiverName = basket.Vendor
             };
 
