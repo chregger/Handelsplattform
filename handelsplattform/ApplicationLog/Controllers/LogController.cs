@@ -9,26 +9,22 @@ namespace ApplicationLog.Controllers
     [ApiController]
     public class LogController : ControllerBase
     {
-        //not a really usefull controller, local variable should be something different in productive
-
-        string[] log = new string[] { "empty" };
+        private readonly string[] _log = { "empty" };
 
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return log;
-            
+            return _log;
         }
 
         [HttpPost]
         public IEnumerable<string> Post([FromBody] Log l)
         {
-
-            log[0] = l.Value+" logged!";
-            //do something meaningfull with the received log
+            _log[0] = l.Value+" logged!";
+            //do something meaningful with the received log
             Console.WriteLine("Log: " + l.Value);
 
-            return log;
+            return _log;
         }
     }
 }
