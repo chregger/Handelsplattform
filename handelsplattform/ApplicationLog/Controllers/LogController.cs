@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using ApplicationLog.Models;
 using System.Collections.Generic;
+using ApplicationLog.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApplicationLog.Controllers
 {

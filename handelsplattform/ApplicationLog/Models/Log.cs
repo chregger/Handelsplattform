@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace ApplicationLog.Models
+﻿namespace ApplicationLog.Models
 {
     public class Log
     {
