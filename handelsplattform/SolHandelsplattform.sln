@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationLog", "Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackFriday", "BlackFriday\BlackFriday.csproj", "{2A992E0A-71B8-4277-B712-D4E785FD67E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericItemCatalog", "GenericItemCatalog\GenericItemCatalog.csproj", "{2DD21741-4637-43F9-BF31-EAF598D27FCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogService", "GenericItemCatalog\ProductCatalogService.csproj", "{2DD21741-4637-43F9-BF31-EAF598D27FCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericItemCatalogFTP", "GenericItemCatalogFTP\GenericItemCatalogFTP.csproj", "{7B653076-5E16-4A01-833D-D4820913E2D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogFTPService", "GenericItemCatalogFTP\ProductCatalogFTPService.csproj", "{7B653076-5E16-4A01-833D-D4820913E2D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IEGEasyCreditCardRobin", "IEGEasyCreditCardRobin\IEGEasyCreditCardRobin.csproj", "{831C0629-EF18-4ABB-9283-6847D02EF430}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IEGEasyCreditCardService", "IEGEasyCreditCardService\IEGEasyCreditCardService.csproj", "{04B65B7C-CEEF-467D-AC11-377116B5BE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paymentservice", "Paymentservice\Paymentservice.csproj", "{20890099-0DA6-4FB8-9B8D-3C9F75167541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymentservice", "Paymentservice\Paymentservice.csproj", "{20890099-0DA6-4FB8-9B8D-3C9F75167541}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

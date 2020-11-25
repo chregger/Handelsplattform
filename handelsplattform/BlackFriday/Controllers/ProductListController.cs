@@ -15,25 +15,20 @@ namespace BlackFriday.Controllers
 
     public class ProductListController : Controller
     {
-        // --- Step 2: Prepare URL and Logger
         private readonly ILogger<ProductListController> _logger;
-        private static readonly string _serviceBaseAddress = "http://ppgenericitemcatalog.azurewebsites.net/";
+        private static readonly string _serviceBaseAddress = "https://productcatalogservice20201125203753.azurewebsites.net";
 
         public ProductListController(ILogger<ProductListController> logger)
         {
             _logger = logger;
         }
 
-        // *---=== Erweiterung 1 Punkt 2. ===---*
-        // --- Step 3: The Get
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            // --- Step 4: Use a List to save Results
-            List<string> productList = null;//= new string[] { "Diners", "Master" };
+            List<string> productList = null;
             _logger.LogError("Product List IN");
 
-            // --- Step 5: Prepare for response
             var client = new HttpClient
             {
                 BaseAddress = new Uri(_serviceBaseAddress)
@@ -42,8 +37,7 @@ namespace BlackFriday.Controllers
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            // --- Step 6:  Call API and save into our list      
-            var response = client.GetAsync(_serviceBaseAddress + "/api/GenericItemCatalog").Result;
+            var response = client.GetAsync(_serviceBaseAddress + "/api/ProductCatalog").Result;
             if (response.IsSuccessStatusCode)
             {
                 productList = response.Content.ReadAsAsync<List<string>>().Result;
@@ -55,8 +49,7 @@ namespace BlackFriday.Controllers
 
             }
 
-            // --- Step 7: return list, Added a dummy item to see if call was successful
-            productList.Add("Dummy added: /api/GenericItemCatalog call successful");
+            productList.Add("Dummy added: /api/productcatalog call successful");
             return productList;
         }
     }

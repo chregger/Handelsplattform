@@ -8,9 +8,9 @@ namespace GenericItemCatalogFTP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericItemCatalogFTP : Controller
+    public class ProductCatalogFTP : Controller
     {
-        private string[] _genericCatalog = { "Default Item FTP Call failed!" };
+        private string[] _productCatalog = { "Default Item FTP Call failed!" };
         private readonly WebClient _request = new WebClient();
         private readonly string _url = "ftp://ftp29.world4you.com/productlist.txt";  //Danke an Gruppe Paul Z. und Stefan R. für den FTP Testzugang
 
@@ -24,12 +24,12 @@ namespace GenericItemCatalogFTP.Controllers
             {
                 var newFileData = _request.DownloadData(_url);
                 var fileString = System.Text.Encoding.UTF8.GetString(newFileData);
-                _genericCatalog = fileString.Split(",");
+                _productCatalog = fileString.Split(",");
 
                 Console.WriteLine("---- Console Test ----");
                 Console.WriteLine(fileString);
 
-                return _genericCatalog;
+                return _productCatalog;
             }
             catch (WebException)
             {
