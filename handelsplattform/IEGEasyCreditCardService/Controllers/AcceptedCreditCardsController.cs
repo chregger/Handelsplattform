@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IEGEasyCreditCardService.Controllers
 {
-    [Route("api/AcceptedCreditCardsController")]
+    [Route("api/[controller]")]
     public class AcceptedCreditCardsController : Controller
     {
-
+        
         [HttpGet]
         public IEnumerable<string> Get()
         {

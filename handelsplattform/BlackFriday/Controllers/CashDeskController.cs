@@ -1,9 +1,13 @@
-﻿using BlackFriday.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Net.Http;
+using BlackFriday.Models;
 using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace BlackFriday.Controllers
 {
@@ -13,7 +17,7 @@ namespace BlackFriday.Controllers
     {
 
         private readonly ILogger<CashDeskController> _logger;
-        private static readonly string _creditcardServiceBaseAddress = "http://iegeasycreditcardservice.azurewebsites.net/";
+        private static readonly string creditcardServiceBaseAddress= "https://iegeasycreditcardservice20201201092426.azurewebsites.net/";
 
         public CashDeskController(ILogger<CashDeskController> logger)
         {
@@ -27,28 +31,25 @@ namespace BlackFriday.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Basket basket)
+        public IActionResult Post([FromBody]Basket basket)
         {
-            _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", basket.CustomerCreditCardNumber, basket.Product, basket.AmountInEuro);
+           _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", new object[] { basket.CustomerCreditCardnumber, basket.Product, basket.AmountInEuro});
 
             //Mapping
-            var creditCardTransaction = new CreditcardTransaction()
+            CreditcardTransaction creditCardTransaction = new CreditcardTransaction()
             {
                 Amount = basket.AmountInEuro,
-                CreditCardNumber = basket.CustomerCreditCardNumber,
+                CreditcardNumber = basket.CustomerCreditCardnumber,
                 ReceiverName = basket.Vendor
             };
 
-            var client = new HttpClient
-            {
-                BaseAddress = new Uri(_creditcardServiceBaseAddress)
-            };
-
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(creditcardServiceBaseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
-            var response = client.PostAsJsonAsync(_creditcardServiceBaseAddress + "/api/CreditcardTransactions", creditCardTransaction).Result;
+            HttpResponseMessage response =  client.PostAsJsonAsync(creditcardServiceBaseAddress + "/api/CreditcardTransactions", creditCardTransaction).Result;
             response.EnsureSuccessStatusCode();
+           
             
             return CreatedAtAction("Get", new { id = System.Guid.NewGuid() }, creditCardTransaction);
         }

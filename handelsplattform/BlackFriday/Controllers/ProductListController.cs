@@ -1,22 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BlackFriday.Controllers
 {
-    // --- Step 1: Define Route and Result
     [Route("api/ProductListController")]
     [Produces("application/json")]
 
     public class ProductListController : Controller
     {
         private readonly ILogger<ProductListController> _logger;
-        private static readonly string _serviceBaseAddress = "https://productcatalogservice20201125203753.azurewebsites.net";
+        private static readonly string _serviceBaseAddress = "https://productcatalog20201201091428.azurewebsites.net/";
 
         public ProductListController(ILogger<ProductListController> logger)
         {
@@ -49,10 +50,8 @@ namespace BlackFriday.Controllers
 
             }
 
-            productList.Add("Dummy added: /api/productcatalog call successful");
+            //productList.Add("Dummy added: /api/productcatalog call successful");
             return productList;
         }
     }
-
 }
-
