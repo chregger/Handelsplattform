@@ -26,14 +26,14 @@ namespace IEGEasyCreditCardServiceRobin.Controllers
         {
 
             List<string> cards = new List<string> { "error" };
-            serviceBaseAddress = "https://iegeasycreditcardservice20201201092426.azurewebsites.net/api/AcceptedCreditCards";
+            serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
             int retrycount = 0;
             HttpResponseMessage response;
 
 
             for (; retrycount <= retrymax; retrycount++)
             {
-                serviceBaseAddress = "https://iegeasycreditcardservice20201201092426.azurewebsites.net/api/AcceptedCreditCards";
+                serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
 
                 client.BaseAddress = new Uri(serviceBaseAddress);
                 client.DefaultRequestHeaders.Accept.Clear();
@@ -72,7 +72,7 @@ namespace IEGEasyCreditCardServiceRobin.Controllers
         {
             //straight from stackoverflow
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://loggingservice20201201101116.azurewebsites.net/api/Logging");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://handelsplattformlogging.azurewebsites.net/api/Logging");
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))

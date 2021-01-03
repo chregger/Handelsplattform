@@ -19,7 +19,7 @@
     "BlackFriday": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "",
+      "launchUrl": "api/CashDesk",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

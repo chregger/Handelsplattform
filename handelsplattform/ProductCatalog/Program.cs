@@ -14,9 +14,7 @@ namespace ProductCatalog
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-                .UseUrls("http://localhost:5001/")
-                .Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

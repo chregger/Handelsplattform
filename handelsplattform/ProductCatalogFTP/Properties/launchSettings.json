@@ -20,8 +20,8 @@
     "ProductCatalogFTP": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "",
-      "applicationUrl": "https://localhost:5001;",
+      "launchUrl": "api/FTP",
+      "applicationUrl": "https://localhost:5008;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -17,7 +17,7 @@ namespace BlackFriday.Controllers
     public class ProductListController : Controller
     {
         private readonly ILogger<ProductListController> _logger;
-        private static readonly string _serviceBaseAddress = "https://productcatalog20201201091428.azurewebsites.net/";
+        private static readonly string _serviceBaseAddress = "https://handelsplattformproductcatalog.azurewebsites.net";
 
         public ProductListController(ILogger<ProductListController> logger)
         {

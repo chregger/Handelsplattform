@@ -16,7 +16,7 @@ namespace BlackFriday.Controllers
     {
         //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
         private readonly ILogger<PaymentMethodsController> _logger;
-        private static readonly string creditcardServiceBaseAddress = "https://iegeasycreditcardservice20201201092426.azurewebsites.net/";
+        private static readonly string creditcardServiceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/";
 
 
         public PaymentMethodsController(ILogger<PaymentMethodsController> logger)
