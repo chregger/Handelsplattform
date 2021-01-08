@@ -17,6 +17,7 @@ namespace BlackFriday.Controllers
     public class ProductListController : Controller
     {
         private readonly ILogger<ProductListController> _logger;
+        //base adress of productcatalog microservice
         private static readonly string _serviceBaseAddress = "https://handelsplattformproductcatalog.azurewebsites.net";
 
         public ProductListController(ILogger<ProductListController> logger)
@@ -50,7 +51,6 @@ namespace BlackFriday.Controllers
 
             }
 
-            //productList.Add("Dummy added: /api/productcatalog call successful");
             return productList;
         }
     }

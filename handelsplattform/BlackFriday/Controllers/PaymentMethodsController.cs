@@ -14,8 +14,8 @@ namespace BlackFriday.Controllers
     [Route("api/PaymentMethods")]
     public class PaymentMethodsController : Controller
     {
-        //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
         private readonly ILogger<PaymentMethodsController> _logger;
+        //base adress of easycreditcardservice microservice
         private static readonly string creditcardServiceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/";
 
 
@@ -26,7 +26,7 @@ namespace BlackFriday.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            List<string> acceptedPaymentMethods = null;//= new string[] { "Diners", "Master" };
+            List<string> acceptedPaymentMethods = null;
             _logger.LogError("Accepted Paymentmethods");
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(creditcardServiceBaseAddress);

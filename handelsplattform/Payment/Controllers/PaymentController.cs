@@ -11,10 +11,17 @@ namespace PaymentService.Controllers
     [Route("api/Payment")]
     public class PaymentController : Controller
     {
-        Transaction c_csv = new Transaction("csv", "123", "Amex", 50.0, "Receiver");
-        Transaction c_json = new Transaction("json", "123", "Amex", 50.0, "Receiver");
-        Transaction c_xml = new Transaction("xml", "123", "Amex", 50.0, "Receiver");
+        /// <summary>
+        /// Hardcoded parameter types
+        /// </summary>
+        Transaction c_csv = new Transaction("csv", "12345", "Master", 50.0, "Receiver");
+        Transaction c_json = new Transaction("json", "12345", "Master", 50.0, "Receiver");
+        Transaction c_xml = new Transaction("xml", "12345", "Master", 50.0, "Receiver");
 
+        /// <summary>
+        /// Read contenttype from header and create response based on the type
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {

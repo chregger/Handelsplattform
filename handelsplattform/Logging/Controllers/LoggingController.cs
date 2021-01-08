@@ -19,6 +19,11 @@ namespace LoggingService.Controllers
             return _log;
         }
 
+        /// <summary>
+        /// Add a message to the logging service
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
         [HttpPost]
         public string Post([FromBody] LogMessage log)
         {

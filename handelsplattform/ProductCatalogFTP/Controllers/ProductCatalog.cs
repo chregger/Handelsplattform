@@ -13,8 +13,12 @@ namespace ProductCatalogFTP.Controllers
     public class ProductCatalog : Controller
     {
         private readonly WebClient _request = new WebClient();
-        private readonly string _url = "ftp://192.168.0.176/Test.txt";
+        private readonly string _url = "ftp://iegproductcatalog.com/Test.txt";
 
+        /// <summary>
+        /// Get the productcatalog from a ftp file on a available server
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -26,9 +30,7 @@ namespace ProductCatalogFTP.Controllers
                 byte[] newFileData = _request.DownloadData(_url);
                 string fileString = System.Text.Encoding.UTF8.GetString(newFileData);
 
-                Console.WriteLine("---- Console Test ----");
                 Console.WriteLine(fileString);
-
                 return fileString.Split(",");
             }
             catch (WebException)

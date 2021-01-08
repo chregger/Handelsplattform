@@ -11,7 +11,10 @@ namespace IEGEasyCreditCardService.Controllers
     [Route("api/[controller]")]
     public class AcceptedCreditCardsController : Controller
     {
-        
+        /// <summary>
+        /// Get all available Creditcards
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {

@@ -21,16 +21,24 @@ namespace IEGEasyCreditCardServiceRobin.Controllers
         string serviceBaseAddress;
         private static readonly HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// Get accepted creditcards by robin mode
+        /// If response fails 1 sec will be waited and retry again
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {
 
             List<string> cards = new List<string> { "error" };
+            //base adress of the creditcardservice
             serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
             int retrycount = 0;
             HttpResponseMessage response;
 
-
+            //for loop for the retry mode
+            //robin mode -> try till response is succesful 
+            //if retrymax is reached robin count will be increased
             for (; retrycount <= retrymax; retrycount++)
             {
                 serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
@@ -51,7 +59,9 @@ namespace IEGEasyCreditCardServiceRobin.Controllers
                 }
                 else
                 {
+                    //Add entry in logging service
                     logging("Error on Service call: " + response.StatusCode + "from Service " + robin);
+                    //wait 1 sec till the next try starts
                     System.Threading.Thread.Sleep(1000);
                     Console.WriteLine("Sleep");
 
@@ -68,10 +78,12 @@ namespace IEGEasyCreditCardServiceRobin.Controllers
         }
 
 
+        /// <summary>
+        /// Logging function to add an entry to the logging microservice
+        /// </summary>
+        /// <param name="log"></param>
         private void logging(string log)
         {
-            //straight from stackoverflow
-
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://handelsplattformlogging.azurewebsites.net/api/Logging");
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";

@@ -8,13 +8,13 @@ namespace PaymentService.Models
     [Serializable]
     public class Transaction
     {
-        public Transaction(string t, string cn, string ct, double a, string r)
+        public Transaction(string type, string creditcardnr, string creditcardtye, double amount, string receiver)
         {
-            Type = t;
-            CreditcardNumber = cn;
-            CreditcardType = ct;
-            Amount = a;
-            ReceiverName = r;
+            Type = type;
+            CreditcardNumber = creditcardnr;
+            CreditcardType = creditcardtye;
+            Amount = amount;
+            ReceiverName = receiver;
         }
 
         public string Type { get; set; }

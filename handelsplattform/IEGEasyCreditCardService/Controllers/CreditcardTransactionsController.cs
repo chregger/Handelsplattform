@@ -7,8 +7,6 @@ using System.Transactions;
 using Microsoft.Extensions.Logging;
 using IEGEasyCreditCardService.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace IEGEasyCreditCardService.Controllers
 {
     [Route("api/[controller]")]
@@ -26,7 +24,11 @@ namespace IEGEasyCreditCardService.Controllers
 
             return "value" + id;
         }
-        // POST api/values
+        /// <summary>
+        /// Add a creditcard transaction 
+        /// </summary>
+        /// <param name="creditcardTransaction"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post([FromBody]CreditcardTransaction creditcardTransaction)
         {

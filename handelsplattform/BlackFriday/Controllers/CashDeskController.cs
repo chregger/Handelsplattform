@@ -17,6 +17,7 @@ namespace BlackFriday.Controllers
     {
 
         private readonly ILogger<CashDeskController> _logger;
+        //baseadress of creditcardservice microservice
         private static readonly string creditcardServiceBaseAddress= "https://handelsplattformiegeasycreditcardservice.azurewebsites.net";
 
         public CashDeskController(ILogger<CashDeskController> logger)
@@ -30,12 +31,17 @@ namespace BlackFriday.Controllers
             return Content("OK");
         }
 
+        /// <summary>
+        /// Add a Creditcardtransaction to the blackfriday service
+        /// </summary>
+        /// <param name="basket"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post([FromBody]Basket basket)
         {
            _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", new object[] { basket.CustomerCreditCardnumber, basket.Product, basket.AmountInEuro});
 
-            //Mapping
+            //Create new CreditcardTransaction from body
             CreditcardTransaction creditCardTransaction = new CreditcardTransaction()
             {
                 Amount = basket.AmountInEuro,
