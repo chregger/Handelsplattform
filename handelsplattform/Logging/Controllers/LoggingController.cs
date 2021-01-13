@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LoggingService.Controllers
 {
@@ -11,7 +9,7 @@ namespace LoggingService.Controllers
     [ApiController]
     public class LoggingController : Controller
     {
-        private string[] _log = { "empty" };
+        private readonly string[] _log = { "empty" };
 
         [HttpGet]
         public IEnumerable<string> Get()

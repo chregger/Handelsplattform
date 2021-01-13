@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IEGEasyCreditCardService.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Transactions;
 using Microsoft.Extensions.Logging;
-using IEGEasyCreditCardService.Models;
 
 namespace IEGEasyCreditCardService.Controllers
 {
@@ -30,11 +25,11 @@ namespace IEGEasyCreditCardService.Controllers
         /// <param name="creditcardTransaction"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post([FromBody]CreditcardTransaction creditcardTransaction)
+        public IActionResult Post([FromBody] CreditcardTransaction creditcardTransaction)
         {
-            _logger.LogError("TransactionInfo Number: {0} Amount:{1} Receiver: {2}", new object[] { creditcardTransaction.CreditcardNumber, creditcardTransaction.Amount,creditcardTransaction.ReceiverName });
+            _logger.LogError("TransactionInfo Number: {0} Amount:{1} Receiver: {2}", new object[] { creditcardTransaction.CreditcardNumber, creditcardTransaction.Amount, creditcardTransaction.ReceiverName });
             return CreatedAtAction("Get", new { id = System.Guid.NewGuid() });
         }
-        
+
     }
 }

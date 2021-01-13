@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using BlackFriday.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BlackFriday.Models;
-using System.Net.Http.Headers;
+using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace BlackFriday.Controllers
 {
@@ -18,7 +14,7 @@ namespace BlackFriday.Controllers
 
         private readonly ILogger<CashDeskController> _logger;
         //baseadress of creditcardservice microservice
-        private static readonly string creditcardServiceBaseAddress= "https://handelsplattformiegeasycreditcardservice.azurewebsites.net";
+        private static readonly string creditcardServiceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net";
 
         public CashDeskController(ILogger<CashDeskController> logger)
         {
@@ -37,9 +33,9 @@ namespace BlackFriday.Controllers
         /// <param name="basket"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post([FromBody]Basket basket)
+        public IActionResult Post([FromBody] Basket basket)
         {
-           _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", new object[] { basket.CustomerCreditCardnumber, basket.Product, basket.AmountInEuro});
+            _logger.LogError("TransactionInfo Creditcard: {0} Product:{1} Amount: {2}", new object[] { basket.CustomerCreditCardnumber, basket.Product, basket.AmountInEuro });
 
             //Create new CreditcardTransaction from body
             CreditcardTransaction creditCardTransaction = new CreditcardTransaction()
@@ -53,10 +49,10 @@ namespace BlackFriday.Controllers
             client.BaseAddress = new Uri(creditcardServiceBaseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response =  client.PostAsJsonAsync(creditcardServiceBaseAddress + "/api/CreditcardTransactions", creditCardTransaction).Result;
+            HttpResponseMessage response = client.PostAsJsonAsync(creditcardServiceBaseAddress + "/api/CreditcardTransactions", creditCardTransaction).Result;
             response.EnsureSuccessStatusCode();
-           
-            
+
+
             return CreatedAtAction("Get", new { id = System.Guid.NewGuid() }, creditCardTransaction);
         }
     }

@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +15,7 @@ namespace BlackFriday.Controllers
     public class ProductListController : Controller
     {
         private readonly ILogger<ProductListController> _logger;
-        //base adress of productcatalog microservice
+        //base address of product catalog micro service
         private static readonly string _serviceBaseAddress = "https://handelsplattformproductcatalog.azurewebsites.net";
 
         public ProductListController(ILogger<ProductListController> logger)

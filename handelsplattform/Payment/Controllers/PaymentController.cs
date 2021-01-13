@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaymentService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.Controllers
 {
@@ -19,15 +15,15 @@ namespace PaymentService.Controllers
         Transaction c_xml = new Transaction("xml", "12345", "Master", 50.0, "Receiver");
 
         /// <summary>
-        /// Read contenttype from header and create response based on the type
+        /// Read content type from header and create response based on the type
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
-            string ContentType = Request.ContentType;
+            var contentType = Request.ContentType;
 
-            switch (ContentType)
+            switch (contentType)
             {
                 case string x when x.Contains("json"):
                     return Ok(c_json);

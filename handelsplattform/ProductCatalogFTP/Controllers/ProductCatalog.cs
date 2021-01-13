@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Cache;
-using System.Threading.Tasks;
 
 namespace ProductCatalogFTP.Controllers
 {
@@ -16,7 +14,7 @@ namespace ProductCatalogFTP.Controllers
         private readonly string _url = "ftp://iegproductcatalog.com/Test.txt";
 
         /// <summary>
-        /// Get the productcatalog from a ftp file on a available server
+        /// Get the product catalog from a ftp file on a available server
         /// </summary>
         /// <returns></returns>
         [HttpGet]
