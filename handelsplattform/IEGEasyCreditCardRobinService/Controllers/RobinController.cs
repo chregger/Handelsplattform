@@ -1,86 +1,83 @@
-﻿using LoggingService.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using IEGEasyCreditCardRobinService.Models;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
-namespace IEGEasyCreditCardServiceRobin.Controllers
+namespace IEGEasyCreditCardRobinService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RobinController : Controller
     {
-        int robin = 1;
-        int retrymax = 5;
-        string serviceBaseAddress;
-        private static readonly HttpClient client = new HttpClient();
+        private int _robin = 1;
+        private const int RetryMax = 5;
+        private string _serviceBaseAddress;
+        private static readonly HttpClient Client = new HttpClient();
 
         /// <summary>
-        /// Get accepted creditcards by robin mode
+        /// Get accepted credit cards by robin mode
         /// If response fails 1 sec will be waited and retry again
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-
-            List<string> cards = new List<string> { "error" };
-            //base adress of the creditcardservice
-            serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
-            int retrycount = 0;
+            var cards = new List<string> { "error" };
+            //base address of the credit card service
+            _serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
+            var retryCount = 0;
             HttpResponseMessage response;
 
             //for loop for the retry mode
-            //robin mode -> try till response is succesful 
-            //if retrymax is reached robin count will be increased
-            for (; retrycount <= retrymax; retrycount++)
+            //robin mode -> try till response is successful
+            //if the maximal retries are reached robin count will be increased
+            for (; retryCount <= RetryMax; retryCount++)
             {
-                serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
+                _serviceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/api/AcceptedCreditCards";
 
-                client.BaseAddress = new Uri(serviceBaseAddress);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                Client.BaseAddress = new Uri(_serviceBaseAddress);
+                Client.DefaultRequestHeaders.Accept.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                response = client.GetAsync(serviceBaseAddress).Result;
-                Console.WriteLine("Retry: " + retrycount + " on " + serviceBaseAddress);
+                response = Client.GetAsync(_serviceBaseAddress).Result;
+                Console.WriteLine("Retry: " + retryCount + " on " + _serviceBaseAddress);
 
                 if (response.IsSuccessStatusCode)
                 {
                     cards = response.Content.ReadAsAsync<List<string>>().Result;
-                    retrycount = 0;
-                    cards.Add("Dummy added: /api/AcceptedCreditCardController call on Service" + robin + " successfull");
+                    retryCount = 0;
+                    cards.Add("Dummy added: /api/AcceptedCreditCardController call on Service" + _robin + " successful");
                     return cards;
                 }
-                else
+
+                //Add entry in logging service
+                Log("Error on Service call: " + response.StatusCode + "from Service " + _robin);
+                
+                //wait 1 sec till the next try starts
+                System.Threading.Thread.Sleep(1000);
+                Console.WriteLine("Sleep");
+
+                if (retryCount != RetryMax)
                 {
-                    //Add entry in logging service
-                    logging("Error on Service call: " + response.StatusCode + "from Service " + robin);
-                    //wait 1 sec till the next try starts
-                    System.Threading.Thread.Sleep(1000);
-                    Console.WriteLine("Sleep");
-
-                    if (retrycount == retrymax)
-                    {
-                        retrycount = 0;
-                        robin++;
-                    }
+                    continue;
                 }
-
-
+                retryCount = 0;
+                _robin++;
             }
             return cards;
         }
 
 
         /// <summary>
-        /// Logging function to add an entry to the logging microservice
+        /// Logging function to add an entry to the logging micro-service
         /// </summary>
         /// <param name="log"></param>
-        private void logging(string log)
+        private static void Log(string log)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://handelsplattformlogging.azurewebsites.net/api/Logging");
             httpWebRequest.ContentType = "application/json";

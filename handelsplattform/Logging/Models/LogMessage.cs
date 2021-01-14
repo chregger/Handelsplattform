@@ -1,4 +1,4 @@
-﻿namespace LoggingService.Models
+﻿namespace Logging.Models
 {
     public class LogMessage
     {

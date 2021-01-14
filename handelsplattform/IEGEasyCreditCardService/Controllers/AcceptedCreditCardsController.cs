@@ -9,15 +9,13 @@ namespace IEGEasyCreditCardService.Controllers
     public class AcceptedCreditCardsController : Controller
     {
         /// <summary>
-        /// Get all available Creditcards
+        /// Get all available ´credit cards
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "American", "Diners", "Master", "Visa", "Blue Monday" };
+            return new[] { "American", "Diners", "Master", "Visa", "Blue Monday" };
         }
-
-
     }
 }

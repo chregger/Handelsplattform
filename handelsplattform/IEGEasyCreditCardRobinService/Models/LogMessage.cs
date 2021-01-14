@@ -1,4 +1,4 @@
-﻿namespace LoggingService.Models
+﻿namespace IEGEasyCreditCardRobinService.Models
 {
     public class LogMessage
     {

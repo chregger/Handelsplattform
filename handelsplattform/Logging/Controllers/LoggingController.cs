@@ -1,9 +1,9 @@
-﻿using LoggingService.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Logging.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LoggingService.Controllers
+namespace Logging.Controllers
 {
     [Route("api/Logging")]
     [ApiController]

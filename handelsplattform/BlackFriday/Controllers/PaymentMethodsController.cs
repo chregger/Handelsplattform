@@ -12,37 +12,42 @@ namespace BlackFriday.Controllers
     public class PaymentMethodsController : Controller
     {
         private readonly ILogger<PaymentMethodsController> _logger;
-        //base adress of easycreditcardservice microservice
-        private static readonly string creditcardServiceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/";
-
+        //base address of credit card service micro-service
+        private const string CreditcardServiceBaseAddress = "https://handelsplattformiegeasycreditcardservice.azurewebsites.net/";
 
         public PaymentMethodsController(ILogger<PaymentMethodsController> logger)
         {
             _logger = logger;
         }
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
             List<string> acceptedPaymentMethods = null;
-            _logger.LogError("Accepted Paymentmethods");
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(creditcardServiceBaseAddress);
+            _logger.LogError("Accepted payment methods");
+
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(CreditcardServiceBaseAddress)
+            };
+
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-
-
-            HttpResponseMessage response = client.GetAsync(creditcardServiceBaseAddress + "/api/AcceptedCreditCards").Result;
+            var response = client.GetAsync(CreditcardServiceBaseAddress + "/api/AcceptedCreditCards").Result;
             if (response.IsSuccessStatusCode)
             {
                 acceptedPaymentMethods = response.Content.ReadAsAsync<List<string>>().Result;
             }
 
-            foreach (var item in acceptedPaymentMethods)
+            if (acceptedPaymentMethods != null)
             {
-                _logger.LogError("Paymentmethod {0}", new object[] { item });
-
+                foreach (var item in acceptedPaymentMethods)
+                {
+                    _logger.LogError("Payment method {0}", item);
+                }
             }
+
             return acceptedPaymentMethods;
         }
     }

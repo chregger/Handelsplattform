@@ -10,9 +10,9 @@ namespace PaymentService.Controllers
         /// <summary>
         /// Hardcoded parameter types
         /// </summary>
-        Transaction c_csv = new Transaction("csv", "12345", "Master", 50.0, "Receiver");
-        Transaction c_json = new Transaction("json", "12345", "Master", 50.0, "Receiver");
-        Transaction c_xml = new Transaction("xml", "12345", "Master", 50.0, "Receiver");
+        private readonly Transaction _csv = new Transaction("csv", "12345", "Master", 50.0, "Receiver");
+        private readonly Transaction _json = new Transaction("json", "12345", "Master", 50.0, "Receiver");
+        private readonly Transaction _xml = new Transaction("xml", "12345", "Master", 50.0, "Receiver");
 
         /// <summary>
         /// Read content type from header and create response based on the type
@@ -26,14 +26,14 @@ namespace PaymentService.Controllers
             switch (contentType)
             {
                 case string x when x.Contains("json"):
-                    return Ok(c_json);
+                    return Ok(_json);
                 case string x when x.Contains("xml"):
                     {
                         Response.ContentType = "application/xml";
-                        return new OkObjectResult(c_xml);
+                        return new OkObjectResult(_xml);
                     }
                 case string x when x.Contains("csv"):
-                    return new OkObjectResult(c_xml.CreditcardNumber + ";" + c_xml.CreditcardType + ";" + c_xml.Amount + ";" + c_xml.ReceiverName);
+                    return new OkObjectResult(_xml.CreditCardNumber + ";" + _xml.CreditCardType + ";" + _xml.Amount + ";" + _xml.ReceiverName);
                 default:
                     return null;
             }

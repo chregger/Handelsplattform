@@ -16,7 +16,7 @@ namespace BlackFriday.Controllers
     {
         private readonly ILogger<ProductListController> _logger;
         //base address of product catalog micro service
-        private static readonly string _serviceBaseAddress = "https://handelsplattformproductcatalog.azurewebsites.net";
+        private const string ServiceBaseAddress = "https://handelsplattformproductcatalog.azurewebsites.net";
 
         public ProductListController(ILogger<ProductListController> logger)
         {
@@ -27,26 +27,28 @@ namespace BlackFriday.Controllers
         public IEnumerable<string> Get()
         {
             List<string> productList = null;
-            _logger.LogError("Product List IN");
+            _logger.LogError("Product list in");
 
             var client = new HttpClient
             {
-                BaseAddress = new Uri(_serviceBaseAddress)
+                BaseAddress = new Uri(ServiceBaseAddress)
             };
 
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = client.GetAsync(_serviceBaseAddress + "/api/ProductCatalog").Result;
+            var response = client.GetAsync(ServiceBaseAddress + "/api/ProductCatalog").Result;
             if (response.IsSuccessStatusCode)
             {
                 productList = response.Content.ReadAsAsync<List<string>>().Result;
             }
 
-            foreach (var item in productList)
+            if (productList != null)
             {
-                _logger.LogError("Product {0}", item);
-
+                foreach (var item in productList)
+                {
+                    _logger.LogError("Product {0}", item);
+                }
             }
 
             return productList;
