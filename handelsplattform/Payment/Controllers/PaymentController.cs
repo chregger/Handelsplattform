@@ -16,22 +16,6 @@ namespace PaymentService.Controllers
         {
             var transaction = new Transaction("12345", "Master", 50.0, "Receiver");
             return Ok(transaction);
-            //var contentType = Request.ContentType;
-
-            //switch (contentType)
-            //{
-            //    case string x when x.Contains("json"):
-            //        return Ok(_json);
-            //    case string x when x.Contains("xml"):
-            //        {
-            //            Response.ContentType = "application/xml";
-            //            return new OkObjectResult(_xml);
-            //        }
-            //    case string x when x.Contains("csv"):
-            //        return new OkObjectResult(_xml.CreditCardNumber + ";" + _xml.CreditCardType + ";" + _xml.Amount + ";" + _xml.ReceiverName);
-            //    default:
-            //        return NoContent();
-            //}
         }
 
         [HttpPost]
